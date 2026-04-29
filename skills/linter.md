@@ -61,6 +61,13 @@ Walk each rule. Record findings as `(line, rule, severity, message, auto-fixable
 
 **no-product-link** (error). Body must contain at least one link to a path under `taxonomy.md`'s `productLinkRoots` (e.g. `/platform/*`, `/solutions/*`).
 
+**directive-collision** (error). Body must not contain patterns that look like leaf or text directives but are actually data. The remark-directive parser greedily consumes `:name`, `::name` and `:::name` constructs; when the "name" is invalid (digits, spaces) the parser can corrupt the rest of the paragraph. Specific patterns to flag:
+- `<digit>:<digits><space><Letter>` — typical of times like "2:14 AM" or "9:30 EST". Auto-fix: replace the colon with a period (`2.14am`).
+- A line beginning with `:` followed by anything that is not a valid directive name (`[a-zA-Z][a-zA-Z0-9-]*`). Auto-fix: escape with backslash (`\:`) or rewrite.
+- A bare `::` or `:::` not followed by a registered directive name. Auto-fix: escape or remove.
+
+The classic regression is a time format in a hook paragraph rendering as a truncated fragment. Verify by building the file and reading the rendered HTML before publish.
+
 **no-image** (error). Body must contain at least one `<figure>` block wrapping an `<img>`. Wall-of-text articles fail to engage readers; the kit requires at least one visual artifact (screenshot of a primary source, diagram, or relevant illustration). Suggested fix: identify a primary-source URL the article cites, screenshot the relevant page, save to `public/images/blog/<slug>.png`, embed as a figure with caption.
 
 **no-video** (warn). Body should contain at least one `<figure>` block wrapping an `<iframe>` to YouTube when topic-relevant video content exists. Search YouTube for the article's primary keywords; if a relevant talk, podcast or explainer is found, embed it. Surface this as a warning rather than an error so articles on niche topics without video coverage can still ship.

@@ -150,6 +150,19 @@ The article must contain:
 - Frontmatter completing every field declared `required` in `taxonomy.md`
 - At least 5 FAQs (or whatever `taxonomy.md` requires)
 
+### MDX directive collisions
+
+Times, ratios and version numbers with colons can collide with the MDX directive parser. The pattern `<digit>:<digits><space><Letter>` (typical of "2:14 AM" or "9:30 EST") makes the parser try to consume `:14` as a text directive, fail, and corrupt the rest of the paragraph. The result is a truncated fragment on the live site with no error at build time.
+
+Avoid:
+- Time formats with `:` in the body. Use `2.14am` or `2 AM` or "the early morning hours" instead.
+- Lines starting with bare `:` followed by anything that is not a registered directive name.
+- `::` or `:::` constructs that aren't intentional directives.
+
+If the article requires a specific time format (e.g. quoting a regulator's deadline of "23:59 UTC"), either escape the colon (`23\:59 UTC`) or wrap in inline code (`` `23:59 UTC` ``).
+
+After every draft, verify the rendered HTML matches the source. The first paragraph is the most common casualty.
+
 ### Wall-of-text avoidance
 
 Long-form articles fail when they read as undifferentiated prose. The eye has nothing to land on, the reader skims past important points, and the page silhouette flattens. Every article must have visual variety:
