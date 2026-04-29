@@ -72,7 +72,11 @@ Apply every rule in this section. Brand voice from `voice.md` is layered on top.
 
 **At least one expert citation** using the `:::cite` directive. Reference a person from `experts.md` or a verifiable public quote with a URL. Always include `avatar` and `linkedin` attributes when available.
 
-**Key facts in `:::fact` callouts** for scanability. Two or three per article.
+**Minimum two `:::fact` callouts** for scanability. Each should pull a key statistic, finding or rule the article wants the reader to remember after skimming. Place them where the surrounding prose has earned the punchline.
+
+**At least one image figure.** A wall of text loses readers. Every article ships with at least one visual: a screenshot of the primary source (regulator's PDF page, vendor's blog header, paper abstract), a relevant diagram you can capture or compose, or an expert headshot used in a non-cite context. Use `<figure>` with a `<div>`-wrapped `<img>`, alt text and a `<figcaption>` linking to the source. The most powerful E-E-A-T move is showing the actual artifact most coverage will only describe.
+
+**At least one YouTube embed when topic-relevant video content exists.** Search at draft time. Conference keynotes, podcast interviews, regulator briefings and explainer videos from named experts all qualify. If nothing strong exists, note it in the report rather than embedding something marginal — but the default expectation is that you find something. Use `<figure>` with a `<div>`-wrapped responsive iframe, title, allow attributes and a `<figcaption>` linking to the YouTube URL.
 
 **A `:::cta` at the end.** Low-friction, specific. "Book a 30-minute walkthrough — no prep needed, no commitment on the first call." Includes `title`, `description`, `cta`, `href` attributes.
 
@@ -144,9 +148,23 @@ The article must contain:
 - Frontmatter completing every field declared `required` in `taxonomy.md`
 - At least 5 FAQs (or whatever `taxonomy.md` requires)
 
+### Wall-of-text avoidance
+
+Long-form articles fail when they read as undifferentiated prose. The eye has nothing to land on, the reader skims past important points, and the page silhouette flattens. Every article must have visual variety:
+
+- At least one image (figure with screenshot or diagram)
+- At least one YouTube embed where topic-relevant video exists
+- At least one expert citation (`:::cite`) with avatar
+- Minimum two `:::fact` callouts
+- Bullet lists, numbered lists, one-sentence paragraphs and tables interleaved through the prose
+
+Apply the squint test: zoom out and look at the article's silhouette. If every block is the same height, restructure. A good article has ragged visual rhythm: tall block, then bullets, then a one-liner, then a medium block, then a fact callout, then a figure.
+
 ### Module spacing
 
 Each module (`:::fact`, `:::cta`, `:::cite`, `<figure>`, `<img>`, `<iframe>`) must be separated from the previous module by at least 2 prose paragraphs. Place modules where they reinforce a point that the surrounding prose has earned.
+
+When you find yourself wanting to put two modules back to back (e.g. a fact callout immediately followed by a cite block), one of two things is true: either you have not earned both modules in the surrounding prose (drop one), or one of them belongs in a different section entirely (move it). Do not try to satisfy module-spacing with filler prose between them.
 
 ## Step 5 — Validate citations and links before writing
 
@@ -186,11 +204,15 @@ If both pass clean, end with a summary:
 ✓ Lint: 0 findings
 ✓ Humanizer: clean
 ✓ Word count: <N>
-✓ Modules: <list>
+✓ Modules: <count> figures, <count> facts, <count> cites, <count> CTAs
+✓ Image figures: <count> (require minimum 1)
+✓ Video embeds: <count> (require minimum 1 if topic-relevant content found)
 ✓ Citations: <count> (<from experts.md>, <verified public>)
 
 Next: review the draft, then `/preview <slug>` or `/publish <slug>`.
 ```
+
+If image count or video count is 0, the report must include the reason: "No relevant image source found — article ships text-only" or similar. Do not silently skip visual content. Walls of text are a failure mode the writer skill explicitly prevents.
 
 ## When to stop and ask
 

@@ -61,6 +61,12 @@ Walk each rule. Record findings as `(line, rule, severity, message, auto-fixable
 
 **no-product-link** (error). Body must contain at least one link to a path under `taxonomy.md`'s `productLinkRoots` (e.g. `/platform/*`, `/solutions/*`).
 
+**no-image** (error). Body must contain at least one `<figure>` block wrapping an `<img>`. Wall-of-text articles fail to engage readers; the kit requires at least one visual artifact (screenshot of a primary source, diagram, or relevant illustration). Suggested fix: identify a primary-source URL the article cites, screenshot the relevant page, save to `public/images/blog/<slug>.png`, embed as a figure with caption.
+
+**no-video** (warn). Body should contain at least one `<figure>` block wrapping an `<iframe>` to YouTube when topic-relevant video content exists. Search YouTube for the article's primary keywords; if a relevant talk, podcast or explainer is found, embed it. Surface this as a warning rather than an error so articles on niche topics without video coverage can still ship.
+
+**fact-callout-min** (error). Body must contain at least 2 `:::fact` callout blocks. Fact callouts pull key statistics or findings the reader should remember after skimming. Auto-fix not available; surface for the writer to add.
+
 **fabricated-cite** (error). Every `:::cite` block must reference a person in `content-kit/experts.md` OR include an external URL where the quote is publicly verifiable. If neither, error.
 
 **missing-avatar** (warn). `:::cite` block with a person who has an `avatar` path in `experts.md` but no `avatar` attribute on the cite directive.
