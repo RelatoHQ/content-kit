@@ -19,30 +19,36 @@ The pipeline ends at a markdown file. What you do with that file (Astro, Next, H
 
 ## Install
 
-Clone into your project so the skills travel with the repo and your team gets them automatically:
+One command from your project root:
 
 ```bash
-# inside your project root
-git clone git@github.com:relato/content-kit.git .claude/content-kit
-ln -s ../content-kit/skills .claude/skills/content-kit
+curl -fsSL https://raw.githubusercontent.com/RelatoHQ/content-kit/main/install.sh | bash
+```
+
+That clones the kit into `.claude/content-kit/`, symlinks the skills and commands into `.claude/`, copies the four guideline templates into `content-kit/`, and adds the cloned kit to your `.gitignore`. Idempotent — safe to re-run to update.
+
+Edit `content-kit/voice.md` (the only required customization) and you're ready to draft.
+
+### Variants
+
+| Use case | Command |
+|---|---|
+| In-project (default) — kit lives in `.claude/`, gitignored | `curl -fsSL https://raw.githubusercontent.com/RelatoHQ/content-kit/main/install.sh \| bash` |
+| User-wide — one install for all projects | `curl -fsSL https://raw.githubusercontent.com/RelatoHQ/content-kit/main/install.sh \| bash -s -- --user` |
+| Submodule — kit version pinned in your repo | `curl -fsSL https://raw.githubusercontent.com/RelatoHQ/content-kit/main/install.sh \| bash -s -- --submodule` |
+
+### Manual install
+
+If you'd rather run the steps yourself:
+
+```bash
+git clone git@github.com:RelatoHQ/content-kit.git .claude/content-kit
+ln -s ../content-kit/skills   .claude/skills/content-kit
 ln -s ../content-kit/commands .claude/commands/content-kit
+mkdir content-kit
+cp .claude/content-kit/templates/{voice,forbidden-words,taxonomy,experts}.md content-kit/
+echo ".claude/content-kit/" >> .gitignore
 ```
-
-Or install once across all your projects:
-
-```bash
-git clone git@github.com:relato/content-kit.git ~/.claude/content-kit
-ln -s ~/.claude/content-kit/skills ~/.claude/skills/content-kit
-ln -s ~/.claude/content-kit/commands ~/.claude/commands/content-kit
-```
-
-Or as a submodule, versioned with your repo:
-
-```bash
-git submodule add git@github.com:relato/content-kit.git .claude/content-kit
-```
-
-Then create the four guideline files at the project root (see [Configuration](#configuration)) and you're ready.
 
 ## Calendar and briefs (Relato)
 
